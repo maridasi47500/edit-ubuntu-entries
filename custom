@@ -1,0 +1,40 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+
+menuentry "nouveau Ubuntu 24.04 salut" {
+  set isofile="/iso/ubuntu-24.04.2-desktop-amd64.iso"
+  set prefix=(hd0,gpt4)/boot/grub
+  set root=(hd0,gpt4)
+  insmod ext2
+  loopback loopa (hd0,gpt4)$isofile
+  linux (loopa)/casper/vmlinuz boot=casper iso-scan/filename=$isofile quiet noeject noprompt splash
+  initrd (loopa)/casper/initrd
+}
+menuentry "nouveau Ubuntu 24.04 salut 2e entree a marche" {
+  insmod ext2
+  set isofile="/iso/ubuntu-24.04.2-desktop-amd64.iso"
+  loopback loop2 (hd0,gpt4)$isofile
+  linux (loop2)/casper/vmlinuz boot=casper layerfs-path=minimal.standard.live.squashfs iso-scan/filename=$isofile
+  initrd (loop2)/casper/initrd
+}
+menuentry "nouveau Ubuntu 22.04 salut" {
+  set isofile="/iso/ubuntu-22.04.5-desktop-amd64.iso"
+  set prefix=(hd0,gpt4)/boot/grub
+  set root=(hd0,gpt4)
+  insmod ext2
+  loopback loopa (hd0,gpt4)$isofile
+  linux (loopa)/casper/vmlinuz boot=casper iso-scan/filename=$isofile quiet noeject noprompt splash
+  initrd (loopa)/casper/initrd
+}
+
+menuentry "nouveau Ubuntu 22.04 salut 2e entree" {
+  insmod ext2
+  set isofile="/iso/ubuntu-22.04.5-desktop-amd64.iso"
+  loopback loop2 (hd0,gpt4)$isofile
+  linux (loop2)/casper/vmlinuz boot=casper layerfs-path=minimal.standard.live.squashfs iso-scan/filename=$isofile
+  initrd (loop2)/casper/initrd
+}
